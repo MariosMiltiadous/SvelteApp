@@ -7,20 +7,33 @@
 		{ name: "luigi", beltColour: "brown", age: 35, id: 3 },
 	];
 
+	let showModal = false;
+
 	const handleDelete = (id) => {
 		people = people.filter((person) => person.id != id);
 	};
 
+	const toggleModal = () => {
+		showModal = !showModal;
+	};
 </script>
 
-<Modal/>
+<Modal {showModal} on:click={toggleModal}>
+	<h3>Add a bew person</h3>
+	<form>
+		<input type="text" placeholder="name">
+		<input type="text" placeholder="Belt">
+		<button>click me</button>
+	</form>
+</Modal>
 
 <main>
+	<button on:click={toggleModal}>Open modal</button>
 	{#each people as person (person.id)}
 		<div>
 			<h4>{person.name}</h4>
-			{#if person.beltColour === 'black'}
-			<p><strong>MASTER NINJA</strong></p>
+			{#if person.beltColour === "black"}
+				<p><strong>MASTER NINJA</strong></p>
 			{/if}
 			<p>
 				{person.age} years old, {person.beltColour} belt. - {person.id}
